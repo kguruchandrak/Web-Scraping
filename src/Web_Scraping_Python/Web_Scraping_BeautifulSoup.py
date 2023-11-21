@@ -63,4 +63,35 @@ class CovidDataScraper:
         """
         html_content = self.fetch_data()
         return self.parse_html(html_content)
+    
+    def Describe(self, df):
+        """
+        Modifies the given DataFrame by removing its first 7 rows and resetting the index,
+        then returns the descriptive statistics of the modified DataFrame.
+
+        The method first drops the first 7 rows of the DataFrame. It then resets the index
+        to the default integer index and drops the old index. Finally, it returns the 
+        descriptive statistics of the DataFrame, including measures like mean, standard 
+        deviation, minimum, and maximum values for numeric columns.
+
+        Parameters:
+            df (DataFrame): A pandas DataFrame on which the operations will be performed.
+
+        Returns:
+            DataFrame: A pandas DataFrame containing descriptive statistics of the modified
+                    input DataFrame.
+
+        Side Effects:
+            - The input DataFrame (df) is modified in-place. The first 7 rows are removed,
+            and its index is reset.
+        """
+        # Drop the first 7 rows of the DataFrame
+        df.drop(df.index[:7], inplace=True)
+
+        # Reset the index to the default integer index
+        df.reset_index(drop=True, inplace=True)
+
+        # Return the descriptive statistics of the DataFrame
+        return df.describe()
+
 
